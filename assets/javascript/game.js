@@ -23,36 +23,42 @@ function startGame() {
     lettersInWord = chosenWord.split("");
     wordLength = lettersInWord.length;
 
+    guessesLeft = 6;
+
     for (var i = 0; i < wordLength; i++) {
         goodGuess.push("_");
     }
+    document.getElementById("chosenWord").innerHTML = goodGuess.join(" ");
 }
 
 function checkLetters(letter) {
-    var letterInWordArray = false;
+
+    var isLetterInWord = false;
+
     for (var i = 0; i < wordLength; i++) {
         if (chosenWord[i] === letter) {
-            letterInWordArray = true;
+            isLetterInWord = true;
         }
     }
-    if (letterInWordArray) {
+    if (isLetterInWord) {
         for (var i = 0; i < wordLength; i++) {
             if (chosenWord[i] === letter) {
                 goodGuess[i] = letter;
             }
-        } 
+        }
     } else {
-                wordArray.push(letter);
-                guessesLeft--;
-            }
+        wordArray.push(letter);
+        guessesLeft--;
+    }
 }
 
 function gameComplete() {
-    console.log("Wins: " + wins);
-    console.log("Number of Guesses Left: " + guessesLeft);
+    console.log("Wins: " + wins)
+    console.log("Number of Guesses Left: " + guessesLeft)
 
     document.getElementById("guessesLeft").innerHTML = guessesLeft;
     document.getElementById("userGuess").innerHTML = goodGuess.join(" ");
+    document.getElementById("userGuess").innerHTML = wordArray.join(" ");
 
 
     if (lettersInWord.toString() === goodGuess.toString()) {
@@ -79,7 +85,7 @@ document.getElementById("losses").innerHTML = "Losses: " + losses;
 document.getElementById("guessesLeft").innerHTML = "Number of Guesses Left: " + guessesLeft;
 
 
-document.onkeyup = function(event) {
+document.onkeyup = function (event) {
     var guess = String.fromCharCode(event.keyCode).toUpperCase();
     checkLetters(guess);
     gameComplete();
